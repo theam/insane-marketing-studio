@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>THE PRODUCT!</title>
+<link rel="stylesheet" href="engine/infomercial.css">
+</head>
+<body>
+<div id="stage"><canvas id="bg" width="480" height="270"></canvas><div id="set"></div></div>
+<div id="scan"></div>
+<div id="vignette"></div>
+<div id="flash"></div>
+<div id="caps"></div>
+<div id="fade"></div>
+<script src="timing.js"></script>
+<script src="assets/gen/manifest.js"></script>
+<script src="engine/engine.js"></script>
+<script src="engine/infomercial.js"></script>
+<script>
+// =====================================================================================================================
+// THE PRODUCT! — the starter infomercial. One cut per idea, each landing on its word ({#cue} in script.md).
+// Building blocks: engine/engine.js (cut, cue/W, place, settle, sfx, audio, setEnding…) and engine/infomercial.js
+// (words, sprite cut-outs, stamp, redX, sticker, fire, boom, dupes, flyers, dropIn, priceCut, endCard…).
+// Rules of the style: Impact meme type big; real photo cut-outs, never drawings; one idea per cut, centred; everything
+// lands on its word in a 2-frame step; the problem in black and white on the grey set, colour floods in on the reveal.
+// =====================================================================================================================
+
+// 1 · The problem: the black-and-white studio. A laptop drowning in spreadsheets, a red X, a stamp.
+cut(c('hook'), 'grey', el => ({
+  o: sprite(el, 'kit:laptop', 760, 'obj bw'),
+  w: words(el, [['ARE YOU TIRED?', 170, W('hook', 3)]]),
+  st: stamp(el, 'SPREADSHEETS', 110),
+  x: redX(el, 560),
+}), (s, t, a, b) => {
+  place(s.o, 960, 560, stepS(settle(t, a) * drift(t, a, b)), 1, -4);
+  drawWords(s.w, t); s.w[0].d.parentElement.style.top = '16%';
+  const P = c('problem'), X = W('problem', 3);
+  place(s.st, 960, 880, stampS(t, P), t >= P ? 1 : 0, -6);
+  place(s.x, 960, 560, settle(t, X) || 0, t >= X ? 1 : 0);
+}, { label: 'problem' });
+sfx(c('problem'), 'stamp'); sfx(W('problem', 3), 'buzzer');
+
+// 2 · Introducing: a tunnel, then the title on fire, its name at every edge, explosions and a flash.
+wordsCut(c('intro'), 'tunnel', [['INTRODUCING…', 180, c('intro'), 'yl']], { label: 'introducing' });
+sfx(c('intro'), 'riser');
+cut(c('title'), 'rainbow', el => ({
+  f: fire(el, { cols: [[260, 1130, 1], [1660, 1130, 1]] }),
+  o: sprite(el, 'kit:crown', 520),
+  d: dupes(el, 'THE PRODUCT!', c('title') + 0.1),
+  w: words(el, [['THE PRODUCT!', 260, c('title'), 'wa']]),
+}), (s, t, a, b) => {
+  drawFire(s.f, t, a);
+  place(s.o, 960, 350, stepS(settle(t, a) * drift(t, a, b)), 1);
+  drawDupes(s.d, t);
+  drawWords(s.w, t); s.w[0].d.parentElement.style.top = '72%';
+}, { label: 'title' });
+FLASH.push({ t: c('title'), amp: 1 });
+boom(c('title'), 260, 230, 0.7); boom(c('title') + 0.1, 1660, 230, 0.7);   // corners: never over the words
+sfx(c('title'), 'hit'); sfx(c('title'), 'fire-whoosh'); sfx(c('title') + 0.3, 'crowd-cheer');
+
+// 3 · How it works: one feature per cut, a cut-out and an 8-bit badge; the last one explodes on a laser show.
+cut(c('feat1'), 'green', el => ({ o: sprite(el, 'kit:rubber-duck', 560, 'obj stk'), b: sticker(el, 'FEATURE #1', 40, 'var(--amber)') }), (s, t, a, b) => {
+  place(s.o, 960, 560, stepS(settle(t, a) * drift(t, a, b)), 1, -6);
+  place(s.b, 1420, 300, settle(t, a + 0.25) || 0, t >= a + 0.25 ? 1 : 0, 6);
+}, { label: 'feature 1' });
+sfx(c('feat1'), 'squeak');
+cut(c('feat2'), 'amber', el => ({ o: sprite(el, 'kit:coffee-cube', 600), w: words(el, [['THE OTHER THING!', 150, W('feat2', 4), 'wa']]) }), (s, t, a, b) => {
+  dropIn(s.o, t, a, 960, 470);
+  drawWords(s.w, t); s.w[0].d.parentElement.style.top = '82%';
+}, { label: 'feature 2' });
+sfx(c('feat2'), 'whoosh'); sfx(c('feat2') + 0.35, 'splash');
+cut(c('feat3'), 'laser', el => ({ w: words(el, [['IT', 260, c('feat3')], ['EXPLODES!', 300, W('feat3', 1), 'yl wa']]) }), (s, t) => drawWords(s.w, t), { label: 'feature 3' });
+// Explosions at the sides, never over the words they celebrate.
+boom(W('feat3', 1), 300, 300, 1); boom(W('feat3', 1) + 0.12, 1620, 320, 1); boom(W('feat3', 1) + 0.3, 1600, 860, 0.8);
+
+// 4 · The offer: the price flips, then the slash and the stamp.
+priceCut(c('pay'), 'amber', [[W('thousand', 1), '$1,000']], { slash: { at: W('free', 1), stamp: 'FREE · $0' }, fine: '*plus shipping &amp; handling', opts: { label: 'offer' } });
+CALM.push([c('free'), c('final')]);
+sfx(c('pay'), 'drumroll'); sfx(W('thousand', 1), 'cash-register'); sfx(W('free', 1), 'stamp');
+
+// 5 · Close: the end card, with the credits the video needs. The bed's finale plays under it.
+endCard(c('final'), 'rainbow', {
+  logo: null, title: 'THE PRODUCT!',
+  lines: ['theproduct.example', '*Results not typical.'],
+  credits: window.PROJECT.credits || [],
+  rainNames: ['kit:rubber-duck', 'kit:crown', 'kit:coffee-cube'],
+});
+FLASH.push({ t: c('final'), amp: 1 }); boom(c('final'), 240, 260, 0.7); boom(c('final') + 0.08, 1680, 260, 0.7); sfx(c('final'), 'hit');
+
+// The end: hold the card about 2 s after the last word, fade, then full black (at least 15 frames).
+setEnding(c('final'), Math.max(2.5, window.TIMING.lastWordEnd + 2.0 - c('final')));
+buildHits();
+ready();
+</script>
+</body>
+</html>

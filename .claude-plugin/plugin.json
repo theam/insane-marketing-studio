@@ -1,0 +1,22 @@
+{
+  "name": "insane-studio",
+  "version": "0.2.0",
+  "description": "Make insane marketing videos by talking to Claude: a frantic late-night infomercial (Impact type, cut-outs, fire, explosions, the price gag) or a calm explainer, from a brief to a mastered MP4 — script, storyboard review, ElevenLabs voice, music and effects, motion graphics rendered frame by frame, mix and master at -14 LUFS, social cut and covers. Runs on a Mac with Claude Code.",
+  "author": {
+    "name": "The Agile Monkeys",
+    "url": "https://theagilemonkeys.com"
+  },
+  "homepage": "https://github.com/theam/insane-marketing-studio",
+  "repository": "https://github.com/theam/insane-marketing-studio",
+  "keywords": [
+    "video",
+    "marketing",
+    "infomercial",
+    "explainer",
+    "elevenlabs",
+    "motion-graphics",
+    "playwright",
+    "ffmpeg"
+  ],
+  "license": "MIT"
+}

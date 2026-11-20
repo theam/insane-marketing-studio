@@ -1,0 +1,18 @@
+{
+  "note": "One chunk per script section, in order (see the infomercial template's music.json for the fields). The explainer's bed: a warm intro, drums on the reveal, a light groove under the numbers, a resolved ending.",
+  "no_voice": ["vocals", "singing", "choir words", "lyrics", "spoken words", "rap"],
+  "chunks": [
+    { "starts_at": 1, "offset": -1.5, "text": "[Intro]", "adherence": "high",
+      "positive": ["instrumental", "warm, curious modern corporate intro", "soft felt piano and gentle synth pads", "light pulse", "92 BPM", "optimistic", "minimal"],
+      "negative": ["drums", "epic", "sad"] },
+    { "starts_at": 2, "offset": -0.2, "text": "[Reveal]\n{soft drums enter on the first beat}", "adherence": "low",
+      "positive": ["instrumental", "light drums enter", "clean electric guitar plucks", "warm bass", "92 BPM", "confident and friendly", "modern tech product video"],
+      "negative": ["aggressive", "rock", "dubstep"] },
+    { "starts_at": 3, "offset": -0.2, "text": "[Groove]", "adherence": "high",
+      "positive": ["instrumental", "light steady groove", "leaves room for a calm voiceover", "no lead melody", "92 BPM"],
+      "negative": ["lead melody", "breakdown"] },
+    { "starts_at": 4, "offset": -0.2, "text": "[Ending]\n{a resolved final chord, then a soft fade}", "adherence": "low",
+      "positive": ["instrumental", "uplifting resolved ending", "sustained final chord", "gentle fade"],
+      "negative": ["abrupt cut", "drum fill"] }
+  ]
+}

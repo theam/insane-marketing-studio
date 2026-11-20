@@ -1,0 +1,110 @@
+#!/bin/bash
+# studio: the one command the skills run. It finds the kit's tools, the shared Node packages and the compiled macOS
+# Vision tools, loads API keys from your keys file only for the steps that spend, and runs the step in the current
+# project folder (or the one given with -C).
+#
+#   studio help                      every command
+#   studio -C ~/Videos/my-video voice
+set -e
+# Resolve the real location: `studio` on the PATH is a symlink to this file.
+SRC="${BASH_SOURCE[0]}"
+while [ -L "$SRC" ]; do D="$(cd -P "$(dirname "$SRC")" && pwd)"; SRC="$(readlink "$SRC")"; case "$SRC" in /*) ;; *) SRC="$D/$SRC";; esac; done
+KIT="$(cd -P "$(dirname "$SRC")/.." && pwd)"
+S="$KIT/scripts"
+export STUDIO_HOME="${STUDIO_HOME:-$HOME/.local/share/insane-marketing-studio}"
+export STUDIO_KEYS="${STUDIO_KEYS:-$HOME/.config/insane-marketing-studio/keys.env}"
+export NODE_PATH="$STUDIO_HOME/node_modules${NODE_PATH:+:$NODE_PATH}"
+export PATH="$STUDIO_HOME/bin:$PATH"
+# Playwright needs Node 20 or newer: prefer Homebrew's when the first node on the PATH is older.
+nodemajor() { "$1" -p 'process.versions.node.split(".")[0]' 2>/dev/null || echo 0; }
+if [ "$(nodemajor node)" -lt 20 ] 2>/dev/null; then
+  for n in /opt/homebrew/bin/node /usr/local/bin/node $(ls -d "$HOME"/.nvm/versions/node/v*/bin/node 2>/dev/null | sort -V -r); do
+    if [ -x "$n" ] && [ "$(nodemajor "$n")" -ge 20 ] 2>/dev/null; then export PATH="$(dirname "$n"):$PATH"; break; fi
+  done
+fi
+if [ "$1" = "-C" ]; then cd "$2"; shift 2; fi
+export PROJECT_DIR="${PROJECT_DIR:-$PWD}"
+
+keys() {  # load the keys file without printing it; empty values are ignored
+  if [ -f "$STUDIO_KEYS" ]; then
+    while IFS='=' read -r k v; do
+      case "$k" in ''|\#*) continue;; esac
+      v="${v%\"}"; v="${v#\"}"; v="${v%\'}"; v="${v#\'}"
+      [ -n "$v" ] && export "$k=$v"
+    done < "$STUDIO_KEYS"
+  fi
+  return 0
+}
+need_project() { [ -f "$PROJECT_DIR/project.json" ] || { echo "This folder isn't a video project (no project.json). cd into one, or make one: studio new <folder>"; exit 1; }; }
+
+cmd="${1:-help}"; shift || true
+case "$cmd" in
+  help|-h|--help) sed -n '/^# COMMANDS/,$p' "$0" | sed 's/^# \{0,1\}//'; exit 0;;
+  setup)        exec "$KIT/setup/setup.sh" "$@";;
+  doctor)       keys; exec python3 "$S/doctor.py" "$@";;
+  keys)         mkdir -p "$(dirname "$STUDIO_KEYS")"; [ -f "$STUDIO_KEYS" ] || cp "$KIT/setup/keys.env.example" "$STUDIO_KEYS"; chmod 600 "$STUDIO_KEYS"
+                echo "Opening $STUDIO_KEYS in TextEdit. Paste each key after its = sign, save, close. Never paste a key into a chat."
+                open -e "$STUDIO_KEYS"; exit 0;;
+  new)          exec python3 "$S/new_project.py" "$@";;
+  voice)        need_project; keys; exec python3 "$S/voices.py" "$@";;
+  timing)       need_project; exec node "$S/build_timing.js" "$@";;
+  points)       need_project; exec node "$S/dump_points.js" "$@";;
+  music)        need_project; keys; exec python3 "$S/music.py" "$@";;
+  fit-music)    need_project; exec python3 "$S/fit_music.py" "$@";;
+  sfx)          need_project; keys; exec python3 "$S/sfx.py" "$@";;
+  mix)          need_project; exec python3 "$S/mix.py" "$@";;
+  render)       need_project; exec node "$S/render.js" "$@";;
+  stills)       need_project; exec node "$S/render.js" stills "$@";;
+  sheet)        need_project; exec node "$S/sheet.js" "$@";;
+  master)       need_project; exec python3 "$S/master.py" "$@";;
+  qc)           exec python3 "$S/master.py" qc "$@";;
+  cover)        need_project; exec node "$S/render_cover.js" "$@";;
+  short)        need_project; exec python3 "$S/short.py" "$@";;
+  board)        need_project; exec python3 "$S/board.py" "$@";;
+  scribe)       keys; exec python3 "$S/scribe.py" "$@";;
+  fetch)        exec python3 "$S/fetch.py" "$@";;
+  put)          exec python3 "$S/fetch.py" --put "$@";;
+  cutout)       exec python3 "$S/cutout.py" "$@";;
+  chroma)       exec "$S/chroma.sh" "$@";;
+  cornerpin)    need_project; exec python3 "$S/cornerpin.py" "$@";;
+  clip-frames)  need_project; exec python3 "$S/clip_frames.py" "$@";;
+  seedance)     need_project; keys; exec python3 "$S/seedance.py" "$@";;
+  plates)       need_project; exec python3 "$S/codexgen.py" "$@";;
+  scan)         exec python3 "$S/scan_secrets.py" "$@";;
+  *) echo "unknown command: $cmd (studio help lists them)"; exit 1;;
+esac
+
+# COMMANDS
+#   studio setup                 install what the kit needs on this Mac (Playwright's browser, the Vision tools, the keys file)
+#   studio doctor                check tools, keys and the project
+#   studio keys                  open your keys file (outside every project) in TextEdit
+#   studio new FOLDER [--style infomercial|explainer] [--title "..."]   start a video project
+#
+#   In a project folder:
+#   studio voice [--dry-run|--plan]   narration takes (sentence by sentence) → audio/voice-lead.wav
+#   studio timing [words.json]        cues, captions and words for the page → timing.js
+#   studio points                     the edit's sound effects, cuts and duration → timing/points.json
+#   studio music [--dry-run]          compose the bed from music.json → audio/music.mp3
+#   studio fit-music [take.mp3]       re-fit a composed take after the narration re-timed
+#   studio sfx [--plan|--all]         the sound effects the edit uses → audio/sfx/
+#   studio mix                        voice + ducked bed + effects → audio/mix.wav
+#   studio render                     the silent picture → out/silent.mp4
+#   studio stills 1.5,4,9             stills → out/stills/
+#   studio sheet [video.mp4] [times]  a labelled contact sheet → out/review/
+#   studio master                     mux at -14 LUFS and check → out/<project>.mp4
+#   studio qc FILE.mp4                only the checks
+#   studio short                      the social cut from short.json → out/<project>-social.mp4
+#   studio cover [cover.html]         cover PNG + JPEG under 5 MB → out/
+#   studio board                      the storyboard data for the review Artifact → board/
+#
+#   Pictures and clips:
+#   studio plates BOOK.json [ids]     plates and cut-out candidates with Codex image generation
+#   studio cutout IN OUT [x y w h]    lift the subject out of a photo (macOS Vision)
+#   studio chroma IN OUT [green|magenta]   key a sprite generated on a flat colour
+#   studio seedance estimate|run|poll Seedance 2.5 clips on Higgsfield, with a cost cap and a ledger
+#   studio clip-frames                extract picked takes to frames for the page (speed ramps, delogo)
+#   studio cornerpin CLIP …           track a screen in a clip for corner-pinning a UI
+#   studio scribe FILE OUT.json       word timestamps of any audio or video (ElevenLabs Scribe, key)
+#   studio fetch URL OUT              save a file from a connector's link (ElevenLabs results)
+#   studio put URL FILE MIME          send a file to a connector's upload link (for Scribe through the connector)
+#   studio scan [DIR]                 look for API keys before anything is committed or pushed

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>The Product</title>
+<link rel="stylesheet" href="engine/explainer.css">
+</head>
+<body>
+<div id="stage"><canvas id="bg" width="480" height="270"></canvas><div id="set"></div></div>
+<div id="scan"></div>
+<div id="vignette"></div>
+<div id="flash"></div>
+<div id="caps"></div>
+<div id="fade"></div>
+<script src="timing.js"></script>
+<script src="assets/gen/manifest.js"></script>
+<script src="engine/engine.js"></script>
+<script src="engine/explainer.js"></script>
+<script>
+// =====================================================================================================================
+// The Product — the starter explainer. Calm: cuts dip in from black, a typed headline with one accent word per cut,
+// real (anonymized) screenshots in a window the camera pans across, chips and stat tiles, a logo card at the end.
+// A real screenshot: put it in assets/screens/name.png (anonymized: no client data, no colleagues' names, no internal
+// figures) and use windowShot(el, 'name', [x0, y0, x1, y1], 1500) + drawShot(…) instead of the mock window below.
+// =====================================================================================================================
+
+// 1 · The problem: three "spreadsheets" stacked, the hours counting up.
+cut(c('hook'), 'grid', el => ({
+  h: headline(el, 'every week, hours <em>lost</em>'),
+  sheets: [0, 1, 2].map(i => { const d = mk('div', 'tile', el, `<div class="l">sheet_${i + 1}_FINAL_v${3 + i}.xlsx</div><div class="n" style="font-size:40px;margin-top:14px">▦ ▦ ▦ ▦</div>`); return d; }),
+  t: tile(el, '0 h', 'lost this week'),
+}), (s, t, a) => {
+  drawHeadline(s.h, t, a);
+  s.sheets.forEach((d, i) => rise(d, t, W('where', 3) + i * 0.15, 560 + i * 400, 520));
+  s.t.n.textContent = countUp(t, c('where'), 6, 1.2) + ' h';
+  rise(s.t.e, t, c('where'), 960, 800);
+}, { label: 'problem' });
+
+// 2 · The product: the name, then one window that holds it all (a mock drawn in code; swap in a real screenshot).
+cut(c('meet'), 'dark', el => ({
+  h: headline(el, 'meet <em>The Product</em>', { top: 420, size: 72 }),
+}), (s, t, a) => drawHeadline(s.h, t, a, 30), { label: 'meet' });
+cut(c('one'), 'grid', el => ({
+  h: headline(el, 'one place, <em>always current</em>'),
+  win: mk('div', 'win', el, '<div style="padding:28px 34px;font:400 26px var(--mono);color:var(--ink-2);line-height:1.9">● projects<br>● people<br>● numbers <span style="color:var(--accent)">· updated just now</span></div>'),
+  chips: ['projects', 'people', 'numbers'].map(x => chip(el, x)),
+}), (s, t, a) => {
+  drawHeadline(s.h, t, a);
+  s.win.style.width = '900px';
+  rise(s.win, t, a + 0.2, 960, 560);
+  s.chips.forEach((ch, i) => rise(ch, t, c('live') + i * 0.2, 560 + i * 400, 880));
+}, { label: 'one place' });
+sfx(c('live'), 'soft-pop');
+
+// 3 · Numbers: a stat tile counting up.
+cut(c('numbers'), 'grid', el => ({ h: headline(el, 'what teams <em>saved</em>'), t: tile(el, '0', 'hours a week, per team') }), (s, t, a) => {
+  drawHeadline(s.h, t, a);
+  s.t.n.textContent = countUp(t, c('saved'), 6, 1.0);
+  rise(s.t.e, t, a + 0.2, 960, 560);
+}, { label: 'numbers' });
+
+// 4 · Close: the logo card with the credits.
+logoCard(c('close'), { lines: ['The Product', 'theproduct.example'], credits: window.PROJECT.credits || [] });  // logo: 'my-logo' for assets/cutouts/my-logo.png
+sfx(c('close'), 'soft-whoosh');
+
+setEnding(c('close'), Math.max(3, window.TIMING.lastWordEnd + 2.5 - c('close')));
+ready();
+</script>
+</body>
+</html>

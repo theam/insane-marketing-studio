@@ -1,0 +1,30 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "insane-marketing-studio",
+  "description": "Insane Marketing Studio: make marketing videos like the INSANE Shepherdr infomercial by talking to Claude.",
+  "owner": {
+    "name": "The Agile Monkeys",
+    "url": "https://theagilemonkeys.com"
+  },
+  "plugins": [
+    {
+      "name": "insane-studio",
+      "source": "./",
+      "description": "From a brief to a finished, mastered marketing video (infomercial or explainer), its social cut and covers.",
+      "version": "0.2.0",
+      "author": {
+        "name": "The Agile Monkeys",
+        "url": "https://theagilemonkeys.com"
+      },
+      "keywords": [
+        "video",
+        "marketing",
+        "infomercial",
+        "elevenlabs"
+      ],
+      "category": "productivity",
+      "homepage": "https://github.com/theam/insane-marketing-studio",
+      "license": "MIT"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover</title>
+<link rel="stylesheet" href="engine/explainer.css">
+</head>
+<body>
+<div id="stage"><canvas id="bg" width="480" height="270"></canvas><div id="set"></div></div>
+<div id="scan"></div><div id="vignette"></div><div id="flash"></div><div id="caps"></div><div id="fade"></div>
+<script src="timing.js"></script>
+<script src="assets/gen/manifest.js"></script>
+<script src="engine/engine.js"></script>
+<script src="engine/explainer.js"></script>
+<script>
+// The cover: one frame, drawn with the video's own blocks. `studio cover` renders it to out/cover.png and out/cover.jpg (< 5 MB, X).
+SHOW_CAPTIONS = false;
+window.COVER_T = 1;
+cut(0, 'grid', el => ({
+  h: headline(el, '<em>The Product</em>', { top: 470, size: 110 }),
+}), (s, t) => { drawHeadline(s.h, 99, 0); });   // add your logo: sprite(el, 'my-logo', 700, 'obj') and place it
+setEnding(0, 2);
+ready();
+</script>
+</body>
+</html>

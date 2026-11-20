@@ -1,0 +1,47 @@
+{
+  "title": "The Product",
+  "style": "explainer",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "voices": {
+    "narrator": {
+      "voice_id": "DtQLDxHbTiQTpVVanTy1",
+      "name": "Justin Case - Warm, Trustworthy, Clear (ElevenLabs library)",
+      "model": "eleven_v4",
+      "settings": {
+        "stability": 0.5,
+        "similarity_boost": 0.8,
+        "style": 0.2,
+        "use_speaker_boost": true
+      },
+      "tempo": 1.0,
+      "chain": "clean"
+    }
+  },
+  "timing": {
+    "lead": 1.5,
+    "gap_sentence": 0.25,
+    "gap_paragraph": 0.45,
+    "gap_section": 0.7,
+    "gap_speaker": 0.3,
+    "silence_db": -40,
+    "max_pause": 0.35,
+    "dramatic_pause": 0.6,
+    "chunk_tempo": {},
+    "chunk_gap": {}
+  },
+  "mix": {
+    "bed_under_voice_db": 6,
+    "duck_db": 7,
+    "sfx_lufs": -24,
+    "target_lufs": -14
+  },
+  "music": {
+    "model": "music_v2_5",
+    "end_pad": 3.0
+  },
+  "credits": [
+    "Voice and music generated with ElevenLabs"
+  ]
+}

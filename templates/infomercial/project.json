@@ -1,0 +1,48 @@
+{
+  "title": "THE PRODUCT!",
+  "style": "infomercial",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "voices": {
+    "narrator": {
+      "voice_id": "Tsns2HvNFKfGiNjllgqo",
+      "name": "Voice Commander Xtreme - 90s toy commercial (ElevenLabs library)",
+      "model": "eleven_v4",
+      "settings": {
+        "speed": 1.12,
+        "stability": 0.3,
+        "similarity_boost": 0.8,
+        "style": 0.7,
+        "use_speaker_boost": true
+      },
+      "tempo": 1.32,
+      "chain": "broadcast"
+    }
+  },
+  "timing": {
+    "lead": 0.5,
+    "gap_sentence": 0.05,
+    "gap_paragraph": 0.1,
+    "gap_section": 0.15,
+    "gap_speaker": 0.1,
+    "silence_db": -40,
+    "max_pause": 0.16,
+    "dramatic_pause": 0.38,
+    "chunk_tempo": {},
+    "chunk_gap": {}
+  },
+  "mix": {
+    "bed_under_voice_db": 6,
+    "duck_db": 7,
+    "sfx_lufs": -19,
+    "target_lufs": -14
+  },
+  "music": {
+    "model": "music_v2_5",
+    "end_pad": 1.5
+  },
+  "credits": [
+    "Made with Claude · voice, music and sound effects generated with ElevenLabs · images generated with Codex"
+  ]
+}

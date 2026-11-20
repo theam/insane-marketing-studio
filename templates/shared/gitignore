@@ -1,0 +1,18 @@
+# Renders and everything the tools rebuild from committed inputs.
+out/
+board/frames/
+audio/voice-lead.wav
+audio/mix.wav
+audio/music.mp3
+audio/short-mix.wav
+audio/lines/*.proc-*.wav
+audio/lines/*.edges.json
+audio/sfx/*.wav
+assets/gen/*/[0-9]*.jpg
+# Impact ships with macOS and may not be redistributed: `studio new` copies it in.
+engine/fonts/Impact.ttf
+# Keys never live in a project. They are in ~/.config/insane-marketing-studio/keys.env.
+.env
+*.env
+.DS_Store
+node_modules/

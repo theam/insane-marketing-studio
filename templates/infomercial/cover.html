@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cover</title>
+<link rel="stylesheet" href="engine/infomercial.css">
+</head>
+<body>
+<div id="stage"><canvas id="bg" width="480" height="270"></canvas><div id="set"></div></div>
+<div id="scan"></div><div id="vignette"></div><div id="flash"></div><div id="caps"></div><div id="fade"></div>
+<script src="timing.js"></script>
+<script src="assets/gen/manifest.js"></script>
+<script src="engine/engine.js"></script>
+<script src="engine/infomercial.js"></script>
+<script>
+// The cover: one frame, drawn with the video's own blocks. No spoilers (the director: the cover never gives away the ending)
+// and the mascot or hero object must appear. `studio cover` renders it to out/cover.png and out/cover.jpg (< 5 MB, X).
+SHOW_CAPTIONS = false;
+window.COVER_T = 1;
+cut(0, 'rainbow', el => ({
+  f: fire(el, { cols: [[220, 1130, 1.1], [1700, 1130, 1.1]] }),
+  burst: mk('div', 'quiet', el, starburst(330, 22, '#ffe14a')),
+  o: sprite(el, 'kit:crown', 520),
+  w: words(el, [['THE PRODUCT!', 250, 0, 'wa']]),
+  s: sticker(el, 'AS SEEN ON TV', 34, 'var(--red)'),
+}), (s, t) => {
+  drawFire(s.f, t, 0);
+  place(s.burst, 960, 360, 1, 1, 8);
+  place(s.o, 960, 370, 1, 1, -4);
+  drawWords(s.w, t); s.w[0].d.parentElement.style.top = '74%';
+  place(s.s, 1560, 150, 1, 1, 8);
+});
+setEnding(0, 2);
+ready();
+</script>
+</body>
+</html>

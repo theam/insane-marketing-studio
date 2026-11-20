@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
+.env
+*.env
+!setup/keys.env.example
+# Sample and test projects never live in the kit: make them anywhere else (e.g. ~/Videos).
+out/

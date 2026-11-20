@@ -1,0 +1,6 @@
+{
+  "note": "The social cut. cuts: the cut numbers from `studio sheet` (#1, #2 …), a number or [first, last]. card: seconds of the call-to-action card the page draws with ?short (0 = none). music: optional anchors [stretch index, music time]; without them each stretch keeps the bed that played under it.",
+  "cuts": [[1, 3], [7, 8]],
+  "card": 0,
+  "name": "social"
+}

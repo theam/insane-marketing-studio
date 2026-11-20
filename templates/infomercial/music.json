@@ -1,0 +1,120 @@
+{
+  "note": "One chunk per script section, in order. starts_at: the section number it starts on; offset: seconds from that section's first sound (negative = before it, so a hit lands on the first word). The composition plan's chunk durations are measured from timing/sections.json, so every change of style lands where the story turns. scripts/music.py composes; scripts/fit_music.py re-fits an existing take after the narration re-times. library: the section of a library score you have the rights to (library/music/README.md) that `studio fit-music --library NAME` lays here when there's no way to compose a new bed.",
+  "no_voice": [
+    "vocals",
+    "singing",
+    "choir words",
+    "lyrics",
+    "spoken words",
+    "rap"
+  ],
+  "chunks": [
+    {
+      "starts_at": 1,
+      "offset": -0.5,
+      "text": "[Muzak]",
+      "adherence": "high",
+      "positive": [
+        "instrumental",
+        "sad, slightly detuned elevator muzak",
+        "cheap 1990s infomercial 'before' music",
+        "wobbly cassette tape warble",
+        "lonely electric piano",
+        "slow 76 BPM",
+        "comedic melancholy",
+        "lo-fi mono feel"
+      ],
+      "negative": [
+        "drums",
+        "upbeat",
+        "epic"
+      ],
+      "library": "muzak"
+    },
+    {
+      "starts_at": 2,
+      "offset": -0.15,
+      "text": "[Reveal]\n{explosive orchestral hit on the first beat}",
+      "adherence": "low",
+      "positive": [
+        "instrumental",
+        "explosive orchestral and synth hit",
+        "then a loud, over-the-top hype anthem kicks in",
+        "1990s infomercial synth-funk meets stadium rock",
+        "slap bass",
+        "electric guitar power chords",
+        "brass stabs",
+        "126 BPM",
+        "C major",
+        "maximal energy"
+      ],
+      "negative": [
+        "sad",
+        "slow",
+        "quiet"
+      ],
+      "library": "reveal"
+    },
+    {
+      "starts_at": 3,
+      "offset": -0.2,
+      "text": "[Hype]",
+      "adherence": "high",
+      "positive": [
+        "instrumental",
+        "relentless hype synth-funk rock",
+        "slap bass and clavinet",
+        "punchy drums",
+        "guitar stabs",
+        "brass stabs",
+        "leaves room for a fast voiceover",
+        "no lead melody",
+        "126 BPM"
+      ],
+      "negative": [
+        "lead melody",
+        "breakdown",
+        "slow"
+      ],
+      "library": "hype"
+    },
+    {
+      "starts_at": 4,
+      "offset": -0.2,
+      "text": "[Offer]",
+      "adherence": "low",
+      "positive": [
+        "instrumental",
+        "urgent infomercial 'call now' build",
+        "pulsing synth bass",
+        "rising strings",
+        "ticking hi-hats",
+        "big hits",
+        "building toward a final explosion",
+        "130 BPM"
+      ],
+      "negative": [
+        "calm",
+        "jazz"
+      ],
+      "library": "offer"
+    },
+    {
+      "starts_at": 5,
+      "offset": -0.2,
+      "text": "[Finale]\n{final triumphant hit, then a soft sparkling pad}",
+      "adherence": "low",
+      "positive": [
+        "instrumental",
+        "one final triumphant orchestral hit",
+        "then a soft calm sparkling pad that fades",
+        "resolved ending"
+      ],
+      "negative": [
+        "drum groove",
+        "abrupt cut"
+      ],
+      "library": "butwait"
+    }
+  ]
+}
