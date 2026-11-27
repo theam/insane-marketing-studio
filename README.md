@@ -1,12 +1,6 @@
 <div align="center">
 
-<a href="https://github.com/theam/insane-marketing-studio/releases/download/v0.2.0/insane-marketing-studio.mp4"><img src="docs/media/preview.gif" alt="A frantic late-night infomercial: INTRODUCING… the INSANE MARKETING STUDIO! on fire, a cat in a crown asking Claude for an infomercial, SCRIPTS! VOICES! GOATS! EXPLOSIONS!, a price tag slashed to $0, IT'S OPEN SOURCE!" width="720"></a>
-
-
-
 https://github.com/user-attachments/assets/cc4b4902-99be-4ea9-ad70-fdf4617aa5a4
-
-
 
 # Insane Marketing Studio
 
@@ -14,7 +8,7 @@ https://github.com/user-attachments/assets/cc4b4902-99be-4ea9-ad70-fdf4617aa5a4
 
 The infomercial above was made by asking Claude Code for it. No video editor, no agency, no timeline: a script with
 tone tags, an ElevenLabs voice, photo cut-outs, fire, explosions and the price gag, mixed and mastered for social.<br>
-**[▶ Watch it with sound](https://github.com/theam/insane-marketing-studio/releases/download/v0.2.0/insane-marketing-studio.mp4)** (25 s) · it cost about ten cents of ElevenLabs credits.
+25 seconds: turn the sound on · it cost about ten cents of ElevenLabs credits · [download the MP4](https://github.com/theam/insane-marketing-studio/releases/download/v0.2.0/insane-marketing-studio.mp4)
 
 [Install](#install) · [Make a video](#make-a-video) · [How it works](#how-it-works) · [Setup in detail](docs/setup.md) · [MIT License](LICENSE)
 
