@@ -19,15 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-The MIT License above covers the code and the documentation. Some files in this
-repository are under other terms; references/credits-and-licenses.md lists them:
-
-- engine/cutouts/ and engine/fx/ images: Creative Commons Attribution 4.0
-  International (CC BY 4.0), except The Agile Monkeys' wordmarks.
-- engine/fonts/: each font under its own SIL Open Font License 1.1 file.
-- The Agile Monkeys' name, logo and wordmarks (engine/cutouts/tam-wordmark-*.png,
-  .claude-plugin/icon.png) are trademarks of The Agile Monkeys S.L. and are not
-  licensed under the MIT License or CC BY 4.0.
