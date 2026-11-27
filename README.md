@@ -2,6 +2,12 @@
 
 <a href="https://github.com/theam/insane-marketing-studio/releases/download/v0.2.0/insane-marketing-studio.mp4"><img src="docs/media/preview.gif" alt="A frantic late-night infomercial: INTRODUCING… the INSANE MARKETING STUDIO! on fire, a cat in a crown asking Claude for an infomercial, SCRIPTS! VOICES! GOATS! EXPLOSIONS!, a price tag slashed to $0, IT'S OPEN SOURCE!" width="720"></a>
 
+
+
+https://github.com/user-attachments/assets/cc4b4902-99be-4ea9-ad70-fdf4617aa5a4
+
+
+
 # Insane Marketing Studio
 
 **Make insane marketing videos by talking to Claude.**
